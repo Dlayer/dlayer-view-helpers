@@ -13,3 +13,9 @@ the view helper into one of my other projects, https://github.com/deanblackborou
 Dlayer (Original project) : https://github.com/Dlayer/dlayer
 Dlayer vNext (Migration to ZF3) : https://github.com/Dlayer/responsive-web-development
 Zend Framework 3 view helpers : https://github.com/deanblackborough/zf3-view-helpers
+
+## View helpers
+
+### Toolbar
+
+Generates the HTML for the toolbar in the designers/managers.  
