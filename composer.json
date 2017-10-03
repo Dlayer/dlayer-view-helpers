@@ -1,12 +1,12 @@
 {
-	"name": "dlayer/dlayer-view-helpers",
+	"name": "dlayer/view-helpers",
 	"description": "View helpers for Dlayer vNext",
 	"autoload": {
 		"psr-4": {
 			"Dlayer\\ViewHelper\\": "src/"
 		}
 	},
-	"homepage": "https://github.com/Dlayer/dlayer-view-helpers",
+	"homepage": "https://github.com/dlayer/view-helpers",
 	"keywords": [
 		"dlayer",
 		"zf2",
@@ -28,7 +28,7 @@
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "https://github.com/Dlayer/dlayer-view-helpers"
+			"url": "https://github.com/dlayer/view-helpers"
 		}
 	],
 	"license": "MIT"
