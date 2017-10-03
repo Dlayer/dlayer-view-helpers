@@ -1,0 +1,35 @@
+{
+	"name": "dlayer/dlayer-view-helpers",
+	"description": "View helpers for Dlayer vNext",
+	"autoload": {
+		"psr-4": {
+			"Dlayer\\ViewHelper\\": "src/"
+		}
+	},
+	"homepage": "https://github.com/Dlayer/dlayer-view-helpers",
+	"keywords": [
+		"dlayer",
+		"zf2",
+		"zf3",
+		"view-helpers"
+	],
+	"authors": [
+		{
+			"name": "Dean Blackborough",
+			"email": "dean@g3d-development.com"
+		}
+	],
+	"require": {
+		"php": "^7.1"
+	},
+	"require-dev": {
+
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/Dlayer/dlayer-view-helpers"
+		}
+	],
+	"license": "MIT"
+}
