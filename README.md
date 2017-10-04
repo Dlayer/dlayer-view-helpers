@@ -1,4 +1,4 @@
-[![Latest Stable Version](https://img.shields.io/packagist/v/dlayer/dlayer-view-helpers.svg?style=flat-square)](https://packagist.org/packages/dlayer/dlayer-view-helpers)
+[![Latest Stable Version](https://img.shields.io/packagist/v/dlayer/view-helpers.svg?style=flat-square)](https://packagist.org/packages/dlayer/view-helpers)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dlayer/dlayer-view-helpers/blob/master/LICENSE)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.1-8892BF.svg)](https://php.net/)
 
