@@ -1,9 +1,8 @@
 # Changelog for Dlayer view helpers
 
-## master - [dd/mm/yyyy]
+## Initial development in progress.
 
-Initial development in progress.
-
-* Added a toolbar view helper, fixed toolbar that appears at the bottom of 
+* Added a toolbar view helper, the toolbar is a fixed navbar that appears at the bottom of 
 each designer/manager.
+* View helper code completion class.
 
