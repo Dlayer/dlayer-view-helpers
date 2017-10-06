@@ -107,6 +107,28 @@ class Toolbar extends AbstractHelper
     }
 
     /**
+     * Generate the HTML for the button
+     *
+     * @param array $button Button array
+     *
+     * @return string
+     */
+    private function button(array $button) : string
+    {
+        $classes = 'btn';
+        if (array_key_exists('btn-classes', $button) === true) {
+            $classes .= ' ' . implode(' ', $button['btn-classes']);
+        }
+
+        $glypth = '';
+        if (array_key_exists('fa-glyphs', $button) === true) {
+            $glypth = '<i class="fa ' . implode(' ', $button['fa-glyphs']) . '" aria-hidden="true"></i> ';
+        }
+        
+        return '<a class="' . $classes . '" href="' . $button['uri'] . '">' . $glypth . $button['name'] . '</a>';
+    }
+
+    /**
      * Reset all properties in case the view helper is called multiple times within a script
      *
      * @return void
@@ -138,7 +160,7 @@ class Toolbar extends AbstractHelper
         if (count($this->button_group_left) > 0) {
             $html .= '<div class="btn-group btn-group-sm">';
             foreach ($this->button_group_left as $button) {
-                $html .= '<a class="btn btn-danger" href="' . $button['uri'] . '"><i class="fa fa-lg fa-ban" aria-hidden="true"></i>' . $button['name'] . '</a>';
+                $html .= $this->button($button);
             }
             $html .= '</div>';
         }
@@ -156,10 +178,11 @@ class Toolbar extends AbstractHelper
             }
         }
 
-        if (count($this->button_group_left) > 0) {
+        if (count($this->button_group_right) > 0) {
             $html .= '<div class="btn-group btn-group-sm ml-auto">';
-            foreach ($this->button_group_left as $button) {
-                $html .= '<a class="btn btn-outline-info" href="' . $button['uri'] . '"><i class="fa fa-lg fa-expand" aria-hidden="true"></i>' . $button['name'] . '</a>';
+            foreach ($this->button_group_right as $button) {
+                //$html .= '<a class="btn btn-outline-info" href="' . $button['uri'] . '"><i class="fa fa-lg fa-expand" aria-hidden="true"></i>' . $button['name'] . '</a>';
+                $html .= $this->button($button);
             }
             $html .= '</div>';
         }
