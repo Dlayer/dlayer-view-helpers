@@ -16,14 +16,14 @@ use Zend\View\Helper\AbstractHelper;
 class Toolbar extends AbstractHelper
 {
     /**
-     * @var array Button groups by section
+     * @var array Classes to apply to the left button group
      */
-    private $button_groups;
+    private $button_group_classes_left;
 
     /**
-     * @var array Classes to apply to each button group
+     * @var array Classes to apply to the right button group
      */
-    private $button_group_classes;
+    private $button_group_classes_right;
 
     /**
      * @var array Left button group
@@ -34,6 +34,16 @@ class Toolbar extends AbstractHelper
      * @ var array Right button group
      */
     private $button_group_right;
+
+    /**
+     * @var array Button groups by section
+     */
+    private $button_groups;
+
+    /**
+     * @var array Classes to apply to each button group in the main part of the toolbar
+     */
+    private $button_groups_classes;
 
     /**
      * Entry point for the view helper
@@ -62,15 +72,43 @@ class Toolbar extends AbstractHelper
     }
 
     /**
-     * Custom classes to attach to button groups
+     * Custom classes to attach to the button groups in the main part of the toolbar
      *
      * @param array $classes
      *
      * @return Toolbar
      */
-    public function buttonGroupClasses(array $classes) : Toolbar
+    public function buttonGroupsClasses(array $classes) : Toolbar
     {
-        $this->button_group_classes = $classes;
+        $this->button_groups_classes = $classes;
+
+        return $this;
+    }
+
+    /**
+     * Custom classes to attach to the left button group
+     *
+     * @param array $classes
+     *
+     * @return Toolbar
+     */
+    public function buttonGroupClassesLeft(array $classes) : Toolbar
+    {
+        $this->button_group_classes_left = $classes;
+
+        return $this;
+    }
+
+    /**
+     * Custom classes to attach to the right button group
+     *
+     * @param array $classes
+     *
+     * @return Toolbar
+     */
+    public function buttonGroupClassesRight(array $classes) : Toolbar
+    {
+        $this->button_group_classes_right = $classes;
 
         return $this;
     }
@@ -136,9 +174,11 @@ class Toolbar extends AbstractHelper
     private function reset() : void
     {
         $this->button_groups = [];
-        $this->button_group_classes = [];
+        $this->button_groups_classes = [];
         $this->button_group_left = [];
         $this->button_group_right = [];
+        $this->button_group_classes_left = [];
+        $this->button_group_classes_right = [];
     }
 
     /**
@@ -168,7 +208,7 @@ class Toolbar extends AbstractHelper
         foreach ($this->button_groups as $section) {
             foreach ($section as $group) {
                 if (count($group) > 0) {
-                    $html .= '<div class="btn-group ' . implode(' ', $this->button_group_classes) . '">';
+                    $html .= '<div class="btn-group ' . implode(' ', $this->button_groups_classes) . '">';
                     foreach ($group as $button) {
                         $html .= $this->button($button);
                     }
@@ -180,7 +220,6 @@ class Toolbar extends AbstractHelper
         if (count($this->button_group_right) > 0) {
             $html .= '<div class="btn-group btn-group-sm ml-auto">';
             foreach ($this->button_group_right as $button) {
-                //$html .= '<a class="btn btn-outline-info" href="' . $button['uri'] . '"><i class="fa fa-lg fa-expand" aria-hidden="true"></i>' . $button['name'] . '</a>';
                 $html .= $this->button($button);
             }
             $html .= '</div>';
