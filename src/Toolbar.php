@@ -26,6 +26,11 @@ class Toolbar extends AbstractHelper
     private $button_group_classes;
 
     /**
+     * @var array Left button group
+     */
+    private $button_group_left;
+
+    /**
      * Entry point for the view helper
      *
      * @return Toolbar
@@ -66,6 +71,20 @@ class Toolbar extends AbstractHelper
     }
 
     /**
+     * Set the button group to optionally display at the left edge of the toolbar, for Dlayer
+     * this is typically the cancel button. Unlike the buttonGroup method this method assumes one
+     * group, not multiple groups
+     *
+     * @param array $group The button group
+     *
+     * @return Toolbar
+     */
+    public function buttonGroupLeft($group) : Toolbar
+    {
+        $this->button_group_left = $group;
+    }
+
+    /**
      * Reset all properties in case the view helper is called multiple times within a script
      *
      * @return void
@@ -74,6 +93,7 @@ class Toolbar extends AbstractHelper
     {
         $this->button_groups = [];
         $this->button_group_classes = [];
+        $this->button_group_left = [];
     }
 
     /**
@@ -90,10 +110,15 @@ class Toolbar extends AbstractHelper
                 <span class="navbar-toggler-icon"></span>
             </button>';
         $html .= '
-            <div class="collapse navbar-collapse" id="navbarBottom">
-                <div class="btn-group btn-group-sm">
-                    <a class="btn btn-danger" href="#"><i class="fa fa-lg fa-ban" aria-hidden="true"></i> Cancel</a>
-                </div>';
+            <div class="collapse navbar-collapse" id="navbarBottom">';
+
+        if (count($this->button_group_left) > 0) {
+            $html .= '<div class="btn-group btn-group-sm">';
+            foreach ($this->button_group_left as $button) {
+                $html .= '<a class="btn btn-danger" href="' . $button['uri'] . '"><i class="fa fa-lg fa-ban" aria-hidden="true"></i>' . $button['name'] . '</a>';
+            }
+            $html .= '</div>';
+        }
 
         foreach ($this->button_groups as $section) {
             foreach ($section as $group) {
