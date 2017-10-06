@@ -31,6 +31,11 @@ class Toolbar extends AbstractHelper
     private $button_group_left;
 
     /**
+     * @ var array Right button group
+     */
+    private $button_group_right;
+
+    /**
      * Entry point for the view helper
      *
      * @return Toolbar
@@ -79,9 +84,26 @@ class Toolbar extends AbstractHelper
      *
      * @return Toolbar
      */
-    public function buttonGroupLeft($group) : Toolbar
+    public function buttonGroupLeft(array $group) : Toolbar
     {
         $this->button_group_left = $group;
+
+        return $this;
+    }
+
+    /**
+     * Set the button group to optionally display at the right edge of the toolbar, for Dlayer
+     * this is typically the expand control
+     *
+     * @param array $group The button group
+     *
+     * @return Toolbar
+     */
+    public function buttonGroupRight(array $group) : Toolbar
+    {
+        $this->button_group_right = $group;
+
+        return $this;
     }
 
     /**
@@ -94,6 +116,7 @@ class Toolbar extends AbstractHelper
         $this->button_groups = [];
         $this->button_group_classes = [];
         $this->button_group_left = [];
+        $this->button_group_right = [];
     }
 
     /**
@@ -133,11 +156,15 @@ class Toolbar extends AbstractHelper
             }
         }
 
-        $html .= '
-            <div class="btn-group ml-auto">
-                <a class="btn btn-outline-info" href="#"><i class="fa fa-lg fa-expand" aria-hidden="true"></i></a>
-            </div></div>';
-        $html .= '</nav>';
+        if (count($this->button_group_left) > 0) {
+            $html .= '<div class="btn-group btn-group-sm ml-auto">';
+            foreach ($this->button_group_left as $button) {
+                $html .= '<a class="btn btn-outline-info" href="' . $button['uri'] . '"><i class="fa fa-lg fa-expand" aria-hidden="true"></i>' . $button['name'] . '</a>';
+            }
+            $html .= '</div>';
+        }
+
+        $html .= '</div></nav>';
 
         return $html;
     }
