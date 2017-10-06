@@ -170,8 +170,7 @@ class Toolbar extends AbstractHelper
                 if (count($group) > 0) {
                     $html .= '<div class="btn-group ' . implode(' ', $this->button_group_classes) . '">';
                     foreach ($group as $button) {
-                        $html .= '<a class="btn btn-outline-info" href="' . $button['uri'] . '">' . $button['name'] .
-                            '</a>';
+                        $html .= $this->button($button);
                     }
                     $html .= '</div>';
                 }
