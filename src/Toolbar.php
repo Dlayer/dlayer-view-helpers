@@ -46,6 +46,11 @@ class Toolbar extends AbstractHelper
     private $button_groups_classes;
 
     /**
+     * @var integer Active button id
+     */
+    private $active;
+
+    /**
      * Entry point for the view helper
      *
      * @return Toolbar
@@ -53,6 +58,20 @@ class Toolbar extends AbstractHelper
     public function __invoke() : Toolbar
     {
         $this->reset();
+
+        return $this;
+    }
+
+    /**
+     * Pass in the id of the active button
+     *
+     * @param integer $id Id/Name of the active button
+     *
+     * @return Toolbar
+     */
+    public function active($id)
+    {
+        $this->active = $id;
 
         return $this;
     }
@@ -158,12 +177,18 @@ class Toolbar extends AbstractHelper
             $classes .= ' ' . implode(' ', $button['btn-classes']);
         }
 
+        if ($this->active !== null && $button['id'] === $this->active) {
+            $classes .= ' active';
+        }
+
         $glypth = '';
         if (array_key_exists('fa-glyphs', $button) === true) {
-            $glypth = '<i class="fa ' . implode(' ', $button['fa-glyphs']) . '" aria-hidden="true"></i> ';
+            $glypth = '<i class="fa ' . implode(' ', $button['fa-glyphs']) .
+                '" aria-hidden="true"></i> ';
         }
         
-        return '<a class="' . $classes . '" href="' . $button['uri'] . '">' . $glypth . $button['name'] . '</a>';
+        return '<a class="' . $classes . '" href="' . $button['id'] . '">' . $glypth .
+            $button['name'] . '</a>';
     }
 
     /**
@@ -179,6 +204,7 @@ class Toolbar extends AbstractHelper
         $this->button_group_right = [];
         $this->button_group_classes_left = [];
         $this->button_group_classes_right = [];
+        $this->active = null;
     }
 
     /**
