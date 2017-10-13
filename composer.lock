@@ -4,21 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "119cb66d51512a05a4817f3d21da0226",
-    "content-hash": "4e378ebce65102f77733d8bc2c3f3b3b",
+    "content-hash": "6f7a47f9255e948ad599dbfcc27f47b2",
     "packages": [
         {
             "name": "deanblackborough/zf3-view-helpers",
-            "version": "v0.62.1",
+            "version": "v1.00.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deanblackborough/zf3-view-helpers.git",
-                "reference": "966d02e8364f0ec8150d205162cd3cd9601bb114"
+                "reference": "9f2df8fc95ee0f9aac6f8fab44a69e7617e37c0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deanblackborough/zf3-view-helpers/zipball/966d02e8364f0ec8150d205162cd3cd9601bb114",
-                "reference": "966d02e8364f0ec8150d205162cd3cd9601bb114",
+                "url": "https://api.github.com/repos/deanblackborough/zf3-view-helpers/zipball/9f2df8fc95ee0f9aac6f8fab44a69e7617e37c0f",
+                "reference": "9f2df8fc95ee0f9aac6f8fab44a69e7617e37c0f",
                 "shasum": ""
             },
             "require": {
@@ -53,20 +52,20 @@
                 "zend",
                 "zf3"
             ],
-            "time": "2017-09-22 12:20:33"
+            "time": "2017-10-13T13:17:31+00:00"
         },
         {
             "name": "deanblackborough/zf3-view-helpers-code-completion",
-            "version": "v1.04.1",
+            "version": "v1.05.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deanblackborough/zf3-view-helpers-code-completion.git",
-                "reference": "a4d3d927a217adfa5ed5e6b7f7fe2bc56dc0e800"
+                "reference": "a5b92f515b63a96b93ec88c98a9f03a1c9780b4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deanblackborough/zf3-view-helpers-code-completion/zipball/a4d3d927a217adfa5ed5e6b7f7fe2bc56dc0e800",
-                "reference": "a4d3d927a217adfa5ed5e6b7f7fe2bc56dc0e800",
+                "url": "https://api.github.com/repos/deanblackborough/zf3-view-helpers-code-completion/zipball/a5b92f515b63a96b93ec88c98a9f03a1c9780b4f",
+                "reference": "a5b92f515b63a96b93ec88c98a9f03a1c9780b4f",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +101,7 @@
                 "zend",
                 "zf3"
             ],
-            "time": "2017-08-22 23:39:57"
+            "time": "2017-10-11T15:21:58+00:00"
         },
         {
             "name": "zendframework/zend-eventmanager",
@@ -156,7 +155,7 @@
                 "events",
                 "zf2"
             ],
-            "time": "2017-07-11 19:17:22"
+            "time": "2017-07-11T19:17:22+00:00"
         },
         {
             "name": "zendframework/zend-loader",
@@ -200,7 +199,7 @@
                 "loader",
                 "zf2"
             ],
-            "time": "2015-06-03 14:05:47"
+            "time": "2015-06-03T14:05:47+00:00"
         },
         {
             "name": "zendframework/zend-stdlib",
@@ -245,7 +244,7 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2016-09-13 14:38:50"
+            "time": "2016-09-13T14:38:50+00:00"
         },
         {
             "name": "zendframework/zend-view",
@@ -332,7 +331,7 @@
                 "view",
                 "zf2"
             ],
-            "time": "2017-03-21 15:05:56"
+            "time": "2017-03-21T15:05:56+00:00"
         }
     ],
     "packages-dev": [],
