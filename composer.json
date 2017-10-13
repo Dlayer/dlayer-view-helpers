@@ -21,7 +21,7 @@
 	],
 	"require": {
 		"php": "^7.1",
-        "deanblackborough/zf3-view-helpers": "0.*",
+        "deanblackborough/zf3-view-helpers": "^1",
         "deanblackborough/zf3-view-helpers-code-completion": "^1"
 	},
 	"require-dev": {
