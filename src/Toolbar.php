@@ -69,7 +69,7 @@ class Toolbar extends AbstractHelper
      *
      * @return Toolbar
      */
-    public function active($id)
+    public function setActiveTool($id)
     {
         $this->active = $id;
 
@@ -83,7 +83,7 @@ class Toolbar extends AbstractHelper
      *
      * @return Toolbar
      */
-    public function buttonGroups(array $groups) : Toolbar
+    public function addTools(array $groups) : Toolbar
     {
         $this->button_groups = $groups;
 
@@ -97,7 +97,7 @@ class Toolbar extends AbstractHelper
      *
      * @return Toolbar
      */
-    public function buttonGroupsClasses(array $classes) : Toolbar
+    public function setClassForToolGroups(array $classes) : Toolbar
     {
         $this->button_groups_classes = $classes;
 
@@ -111,7 +111,7 @@ class Toolbar extends AbstractHelper
      *
      * @return Toolbar
      */
-    public function buttonGroupClassesLeft(array $classes) : Toolbar
+    public function setClassesForLeftToolGroup(array $classes) : Toolbar
     {
         $this->button_group_classes_left = $classes;
 
@@ -125,7 +125,7 @@ class Toolbar extends AbstractHelper
      *
      * @return Toolbar
      */
-    public function buttonGroupClassesRight(array $classes) : Toolbar
+    public function setClassesForRightToolGroup(array $classes) : Toolbar
     {
         $this->button_group_classes_right = $classes;
 
@@ -141,7 +141,7 @@ class Toolbar extends AbstractHelper
      *
      * @return Toolbar
      */
-    public function buttonGroupLeft(array $group) : Toolbar
+    public function addToolsToLeft(array $group) : Toolbar
     {
         $this->button_group_left = $group;
 
@@ -156,7 +156,7 @@ class Toolbar extends AbstractHelper
      *
      * @return Toolbar
      */
-    public function buttonGroupRight(array $group) : Toolbar
+    public function addToolsToRight(array $group) : Toolbar
     {
         $this->button_group_right = $group;
 
