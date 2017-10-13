@@ -497,9 +497,11 @@ class ViewHelperCodeCompletion extends Zf3ViewHelpersCC\CustomAndZend
     /**
      * Generate the HTML for the Dlayer designer/manager toolbar
      *
+     * @param string $id Id for navbar
+     *
      * @return Toolbar
      */
-    public function toolbar() : Toolbar {}
+    public function toolbar($id = 'dlayer_toolbar') : Toolbar {}
 
     /**
      * Generates a url given the name of a route.
