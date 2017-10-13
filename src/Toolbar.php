@@ -6,7 +6,7 @@ namespace Dlayer\ViewHelper;
 use Zend\View\Helper\AbstractHelper;
 
 /**
- * Generate the toolbar for the managers/designers
+ * Generate the toolbar for the Dlayer managers and designers
  *
  * @package Dlayer\ViewHelper
  * @author Dean Blackborough <dean@g3d-development.com>
@@ -18,32 +18,32 @@ class Toolbar extends AbstractHelper
     /**
      * @var array Classes to apply to the left button group
      */
-    private $button_group_classes_left;
+    private $classes_left_tool_group;
 
     /**
      * @var array Classes to apply to the right button group
      */
-    private $button_group_classes_right;
+    private $classes_right_tool_group;
 
     /**
      * @var array Left button group
      */
-    private $button_group_left;
+    private $tool_groups_left;
 
     /**
      * @ var array Right button group
      */
-    private $button_group_right;
+    private $tool_groups_right;
 
     /**
      * @var array Button groups by section
      */
-    private $button_groups;
+    private $tool_groups;
 
     /**
      * @var array Classes to apply to each button group in the main part of the toolbar
      */
-    private $button_groups_classes;
+    private $classes_tool_groups;
 
     /**
      * @var integer Active button id
@@ -51,13 +51,22 @@ class Toolbar extends AbstractHelper
     private $active;
 
     /**
+     * @var string Id for navbar, needs to be unique if there are multiple navbars in the same view
+     */
+    private $id;
+
+    /**
      * Entry point for the view helper
+     *
+     * @param string $id Id for navbar
      *
      * @return Toolbar
      */
-    public function __invoke() : Toolbar
+    public function __invoke($id = 'dlayer_toolbar') : Toolbar
     {
         $this->reset();
+
+        $this->id = $id;
 
         return $this;
     }
@@ -85,7 +94,7 @@ class Toolbar extends AbstractHelper
      */
     public function addTools(array $groups) : Toolbar
     {
-        $this->button_groups = $groups;
+        $this->tool_groups = $groups;
 
         return $this;
     }
@@ -99,7 +108,7 @@ class Toolbar extends AbstractHelper
      */
     public function setClassForToolGroups(array $classes) : Toolbar
     {
-        $this->button_groups_classes = $classes;
+        $this->classes_tool_groups = $classes;
 
         return $this;
     }
@@ -113,7 +122,7 @@ class Toolbar extends AbstractHelper
      */
     public function setClassesForLeftToolGroup(array $classes) : Toolbar
     {
-        $this->button_group_classes_left = $classes;
+        $this->classes_left_tool_group = $classes;
 
         return $this;
     }
@@ -127,7 +136,7 @@ class Toolbar extends AbstractHelper
      */
     public function setClassesForRightToolGroup(array $classes) : Toolbar
     {
-        $this->button_group_classes_right = $classes;
+        $this->classes_right_tool_group = $classes;
 
         return $this;
     }
@@ -143,7 +152,7 @@ class Toolbar extends AbstractHelper
      */
     public function addToolsToLeft(array $group) : Toolbar
     {
-        $this->button_group_left = $group;
+        $this->tool_groups_left = $group;
 
         return $this;
     }
@@ -158,7 +167,7 @@ class Toolbar extends AbstractHelper
      */
     public function addToolsToRight(array $group) : Toolbar
     {
-        $this->button_group_right = $group;
+        $this->tool_groups_right = $group;
 
         return $this;
     }
@@ -198,13 +207,14 @@ class Toolbar extends AbstractHelper
      */
     private function reset() : void
     {
-        $this->button_groups = [];
-        $this->button_groups_classes = [];
-        $this->button_group_left = [];
-        $this->button_group_right = [];
-        $this->button_group_classes_left = [];
-        $this->button_group_classes_right = [];
+        $this->tool_groups = [];
+        $this->classes_tool_groups = [];
+        $this->tool_groups_left = [];
+        $this->tool_groups_right = [];
+        $this->classes_left_tool_group = [];
+        $this->classes_right_tool_group = [];
         $this->active = null;
+        $this->id = null;
     }
 
     /**
@@ -216,25 +226,23 @@ class Toolbar extends AbstractHelper
     private function render() : string
     {
         $html = '<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom mt5">';
-        $html .= '
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarBottom" aria-controls="navbarBottom" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>';
-        $html .= '
-            <div class="collapse navbar-collapse" id="navbarBottom">';
+        $html .= '<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#' .
+            $this->id . '" aria-controls="' . $this->id .
+            '" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>';
+        $html .= '<div class="collapse navbar-collapse" id="' . $this->id . '">';
 
-        if (count($this->button_group_left) > 0) {
+        if (count($this->tool_groups_left) > 0) {
             $html .= '<div class="btn-group btn-group-sm">';
-            foreach ($this->button_group_left as $button) {
+            foreach ($this->tool_groups_left as $button) {
                 $html .= $this->button($button);
             }
             $html .= '</div>';
         }
 
-        foreach ($this->button_groups as $section) {
+        foreach ($this->tool_groups as $section) {
             foreach ($section as $group) {
                 if (count($group) > 0) {
-                    $html .= '<div class="btn-group ' . implode(' ', $this->button_groups_classes) . '">';
+                    $html .= '<div class="btn-group ' . implode(' ', $this->classes_tool_groups) . '">';
                     foreach ($group as $button) {
                         $html .= $this->button($button);
                     }
@@ -243,9 +251,9 @@ class Toolbar extends AbstractHelper
             }
         }
 
-        if (count($this->button_group_right) > 0) {
+        if (count($this->tool_groups_right) > 0) {
             $html .= '<div class="btn-group btn-group-sm ml-auto">';
-            foreach ($this->button_group_right as $button) {
+            foreach ($this->tool_groups_right as $button) {
                 $html .= $this->button($button);
             }
             $html .= '</div>';
