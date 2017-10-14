@@ -56,6 +56,11 @@ class Toolbar extends AbstractHelper
     private $id;
 
     /**
+     * @var boolean Fixed bottom layout
+     */
+    private $fixed_bottom = false;
+
+    /**
      * Entry point for the view helper
      *
      * @param string $id Id for navbar
@@ -173,6 +178,18 @@ class Toolbar extends AbstractHelper
     }
 
     /**
+     * Fixed bottom layout
+     *
+     * @return Toolbar
+     */
+    public function fixedBottom() : Toolbar
+    {
+        $this->fixed_bottom = true;
+
+        return $this;
+    }
+
+    /**
      * Generate the HTML for the button
      *
      * @param array $button Button array
@@ -215,6 +232,7 @@ class Toolbar extends AbstractHelper
         $this->classes_right_tool_group = [];
         $this->active = null;
         $this->id = null;
+        $this->fixed_bottom = false;
     }
 
     /**
@@ -225,7 +243,13 @@ class Toolbar extends AbstractHelper
      */
     private function render() : string
     {
-        $html = '<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom mt5">';
+        $classes = '';
+
+        if ($this->fixed_bottom === true) {
+            $classes .= ' fixed-bottom';
+        }
+
+        $html = '<nav class="navbar navbar-expand-lg navbar-dark bg-dark' . $classes . '">';
         $html .= '<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#' .
             $this->id . '" aria-controls="' . $this->id .
             '" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>';
