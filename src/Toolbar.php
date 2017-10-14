@@ -16,34 +16,28 @@ use Zend\View\Helper\AbstractHelper;
 class Toolbar extends AbstractHelper
 {
     /**
-     * @var array Classes to apply to the left button group
+     * @var array Classes for the component sections
      */
-    private $classes_left_tool_group;
+    private $classes;
 
     /**
-     * @var array Classes to apply to the right button group
-     */
-    private $classes_right_tool_group;
-
-    /**
-     * @var array Left button group
-     */
-    private $tool_groups_left;
-
-    /**
-     * @ var array Right button group
-     */
-    private $tool_groups_right;
-
-    /**
-     * @var array Button groups by section
+     * @var array Tool groups
      */
     private $tool_groups;
 
     /**
-     * @var array Classes to apply to each button group in the main part of the toolbar
+     * @var array Bootstrap styles
      */
-    private $classes_tool_groups;
+    protected $supported_text_styles = [
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'light',
+        'dark'
+    ];
 
     /**
      * @var integer Active button id
@@ -54,11 +48,6 @@ class Toolbar extends AbstractHelper
      * @var string Id for navbar, needs to be unique if there are multiple navbars in the same view
      */
     private $id;
-
-    /**
-     * @var boolean Fixed bottom layout
-     */
-    private $fixed_bottom = false;
 
     /**
      * Entry point for the view helper
@@ -72,6 +61,74 @@ class Toolbar extends AbstractHelper
         $this->reset();
 
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Override the __toString() method to allow echo/print of the view helper directly, saves a
+     * call to render()
+     *
+     * @return string
+     */
+    public function __toString() : string
+    {
+        return $this->render();
+    }
+
+    /**
+     * Pass in the button groups array
+     *
+     * @param array $groups The button groups to display
+     *
+     * @return Toolbar
+     */
+    public function addTools(array $groups) : Toolbar
+    {
+        $this->tool_groups['main'] = $groups;
+
+        return $this;
+    }
+
+    /**
+     * Set the button group to optionally display at the left edge of the toolbar, for Dlayer
+     * this is typically the cancel button. Unlike the buttonGroup method this method assumes one
+     * group, not multiple groups
+     *
+     * @param array $group The button group
+     *
+     * @return Toolbar
+     */
+    public function addToolsToLeft(array $group) : Toolbar
+    {
+        $this->tool_groups['left'] = $group;
+
+        return $this;
+    }
+
+    /**
+     * Set the button group to optionally display at the right edge of the toolbar, for Dlayer
+     * this is typically the expand control
+     *
+     * @param array $group The button group
+     *
+     * @return Toolbar
+     */
+    public function addToolsToRight(array $group) : Toolbar
+    {
+        $this->tool_groups['right'];
+
+        return $this;
+    }
+
+    /**
+     * Fixed bottom layout
+     *
+     * @return Toolbar
+     */
+    public function fixedBottom() : Toolbar
+    {
+        $this->classes['main'][] = 'fixed-bottom';
 
         return $this;
     }
@@ -91,34 +148,6 @@ class Toolbar extends AbstractHelper
     }
 
     /**
-     * Pass in the button groups array
-     *
-     * @param array $groups The button groups to display
-     *
-     * @return Toolbar
-     */
-    public function addTools(array $groups) : Toolbar
-    {
-        $this->tool_groups = $groups;
-
-        return $this;
-    }
-
-    /**
-     * Custom classes to attach to the button groups in the main part of the toolbar
-     *
-     * @param array $classes
-     *
-     * @return Toolbar
-     */
-    public function setClassForToolGroups(array $classes) : Toolbar
-    {
-        $this->classes_tool_groups = $classes;
-
-        return $this;
-    }
-
-    /**
      * Custom classes to attach to the left button group
      *
      * @param array $classes
@@ -127,7 +156,7 @@ class Toolbar extends AbstractHelper
      */
     public function setClassesForLeftToolGroup(array $classes) : Toolbar
     {
-        $this->classes_left_tool_group = $classes;
+        $this->classes['left'] = $classes;
 
         return $this;
     }
@@ -141,52 +170,51 @@ class Toolbar extends AbstractHelper
      */
     public function setClassesForRightToolGroup(array $classes) : Toolbar
     {
-        $this->classes_right_tool_group = $classes;
+        $this->classes['right'] = $classes;
 
         return $this;
     }
 
     /**
-     * Set the button group to optionally display at the left edge of the toolbar, for Dlayer
-     * this is typically the cancel button. Unlike the buttonGroup method this method assumes one
-     * group, not multiple groups
+     * Custom classes to attach to the button groups in the main part of the toolbar
      *
-     * @param array $group The button group
+     * @param array $classes
      *
      * @return Toolbar
      */
-    public function addToolsToLeft(array $group) : Toolbar
+    public function setClassForToolGroups(array $classes) : Toolbar
     {
-        $this->tool_groups_left = $group;
+        $this->classes['groups'] = $classes;
 
         return $this;
     }
 
     /**
-     * Set the button group to optionally display at the right edge of the toolbar, for Dlayer
-     * this is typically the expand control
+     * Set the text color for the component, need to be one of the following, primary, secondary, success, danger,
+     * warning, info, light or dark, if an incorrect style is passed in we don't apply the class.
      *
-     * @param array $group The button group
+     * @param string $color
      *
      * @return Toolbar
      */
-    public function addToolsToRight(array $group) : Toolbar
+    public function setTextStyle(string $color) : Toolbar
     {
-        $this->tool_groups_right = $group;
+        $this->assignTextStyle($color);
 
         return $this;
     }
 
     /**
-     * Fixed bottom layout
+     * Validate and assign the text colour, needs to be one of the following, primary, secondary, success, danger,
+     * warning, info, light or dark, if an incorrect style is passed in we don't apply the class.
      *
-     * @return Toolbar
+     * @param string $color
      */
-    public function fixedBottom() : Toolbar
+    protected function assignTextStyle(string $color)
     {
-        $this->fixed_bottom = true;
-
-        return $this;
+        if (in_array($color, $this->supported_text_styles) === true) {
+            $this->text_color = $color;
+        }
     }
 
     /**
@@ -218,24 +246,6 @@ class Toolbar extends AbstractHelper
     }
 
     /**
-     * Reset all properties in case the view helper is called multiple times within a script
-     *
-     * @return void
-     */
-    private function reset() : void
-    {
-        $this->tool_groups = [];
-        $this->classes_tool_groups = [];
-        $this->tool_groups_left = [];
-        $this->tool_groups_right = [];
-        $this->classes_left_tool_group = [];
-        $this->classes_right_tool_group = [];
-        $this->active = null;
-        $this->id = null;
-        $this->fixed_bottom = false;
-    }
-
-    /**
      * Worker method for the view helper, generates the HTML, the method is private so that we
      * can echo/print the view helper directly
      *
@@ -243,41 +253,35 @@ class Toolbar extends AbstractHelper
      */
     private function render() : string
     {
-        $classes = '';
+        $classes = ' ' . implode(' ', $this->classes['main']);
 
-        if ($this->fixed_bottom === true) {
-            $classes .= ' fixed-bottom';
-        }
-
-        $html = '<nav class="navbar navbar-expand-lg navbar-dark bg-dark' . $classes . '">';
+        $html = '<nav class="navbar navbar-expand-lg navbar-dark bg-dark' . rtrim($classes) . '">';
         $html .= '<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#' .
             $this->id . '" aria-controls="' . $this->id .
             '" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>';
         $html .= '<div class="collapse navbar-collapse" id="' . $this->id . '">';
 
-        if (count($this->tool_groups_left) > 0) {
-            $html .= '<div class="btn-group btn-group-sm">';
-            foreach ($this->tool_groups_left as $button) {
+        if (count($this->tool_groups['left']) > 0) {
+            $html .= '<div class="' . implode(' ', $this->classes['left']) . '">';
+            foreach ($this->tool_groups['left'] as $button) {
                 $html .= $this->button($button);
             }
             $html .= '</div>';
         }
 
-        foreach ($this->tool_groups as $section) {
-            foreach ($section as $group) {
-                if (count($group) > 0) {
-                    $html .= '<div class="btn-group ' . implode(' ', $this->classes_tool_groups) . '">';
-                    foreach ($group as $button) {
-                        $html .= $this->button($button);
-                    }
-                    $html .= '</div>';
+        foreach ($this->tool_groups['main'] as $group) {
+            if (count($group) > 0) {
+                $html .= '<div class="' . implode(' ', $this->classes['groups']) . '">';
+                foreach ($group as $button) {
+                    $html .= $this->button($button);
                 }
+                $html .= '</div>';
             }
         }
 
-        if (count($this->tool_groups_right) > 0) {
-            $html .= '<div class="btn-group btn-group-sm ml-auto">';
-            foreach ($this->tool_groups_right as $button) {
+        if (count($this->tool_groups['right']) > 0) {
+            $html .= '<div class="' . implode(' ', $this->classes['right']) . '">';
+            foreach ($this->tool_groups['right'] as $button) {
                 $html .= $this->button($button);
             }
             $html .= '</div>';
@@ -289,13 +293,26 @@ class Toolbar extends AbstractHelper
     }
 
     /**
-     * Override the __toString() method to allow echo/print of the view helper directly, saves a
-     * call to render()
+     * Reset all properties in case the view helper is called multiple times within a script
      *
-     * @return string
+     * @return void
      */
-    public function __toString() : string
+    private function reset() : void
     {
-        return $this->render();
+        $this->classes = [
+            'main' => [],
+            'groups' => [ 'btn-group' ],
+            'left' => [ 'btn-group' ],
+            'right' => [ 'btn-group' ]
+        ];
+
+        $this->tool_groups = [
+            'main' => [],
+            'left' => [],
+            'right' => []
+        ];
+
+        $this->active = null;
+        $this->id = null;
     }
 }
