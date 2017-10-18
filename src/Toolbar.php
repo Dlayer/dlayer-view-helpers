@@ -370,7 +370,7 @@ class Toolbar extends AbstractHelper
     protected function assignTextStyle(string $color)
     {
         if (in_array($color, $this->supported_text_styles) === true) {
-            $this->classes['main'][] = 'text' . $color;
+            $this->classes['main'][] = 'text-' . $color;
         }
     }
 

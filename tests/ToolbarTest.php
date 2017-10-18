@@ -396,4 +396,116 @@ final class ToolbarTest extends \PHPUnit\Framework\Testcase
             $view_helper->__toString()
         );
     }
+
+    /**
+     * Test setting text color, primary
+     */
+    public function testSetTextPrimary()
+    {
+        $view_helper = new Toolbar();
+        $view_helper->__invoke('toolbar')
+            ->setTextStyle('primary');
+        $this->assertEquals(
+            '<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-primary"><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#toolbar" aria-controls="toolbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="toolbar"></div></nav>',
+            $view_helper->__toString()
+        );
+    }
+
+    /**
+     * Test setting text color, secondary
+     */
+    public function testSetTextSecondary()
+    {
+        $view_helper = new Toolbar();
+        $view_helper->__invoke('toolbar')
+            ->setTextStyle('secondary');
+        $this->assertEquals(
+            '<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-secondary"><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#toolbar" aria-controls="toolbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="toolbar"></div></nav>',
+            $view_helper->__toString()
+        );
+    }
+
+    /**
+     * Test setting text color, success
+     */
+    public function testSetTextSuccess()
+    {
+        $view_helper = new Toolbar();
+        $view_helper->__invoke('toolbar')
+            ->setTextStyle('success');
+        $this->assertEquals(
+            '<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-success"><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#toolbar" aria-controls="toolbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="toolbar"></div></nav>',
+            $view_helper->__toString()
+        );
+    }
+
+    /**
+     * Test setting text color, danger
+     */
+    public function testSetTextDanger()
+    {
+        $view_helper = new Toolbar();
+        $view_helper->__invoke('toolbar')
+            ->setTextStyle('danger');
+        $this->assertEquals(
+            '<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-danger"><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#toolbar" aria-controls="toolbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="toolbar"></div></nav>',
+            $view_helper->__toString()
+        );
+    }
+
+    /**
+     * Test setting text color, warning
+     */
+    public function testSetTextWarning()
+    {
+        $view_helper = new Toolbar();
+        $view_helper->__invoke('toolbar')
+            ->setTextStyle('warning');
+        $this->assertEquals(
+            '<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-warning"><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#toolbar" aria-controls="toolbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="toolbar"></div></nav>',
+            $view_helper->__toString()
+        );
+    }
+
+    /**
+     * Test setting text color, info
+     */
+    public function testSetTextInfo()
+    {
+        $view_helper = new Toolbar();
+        $view_helper->__invoke('toolbar')
+            ->setTextStyle('info');
+        $this->assertEquals(
+            '<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-info"><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#toolbar" aria-controls="toolbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="toolbar"></div></nav>',
+            $view_helper->__toString()
+        );
+    }
+
+    /**
+     * Test setting text color, light
+     */
+    public function testSetTextLight()
+    {
+        $view_helper = new Toolbar();
+        $view_helper->__invoke('toolbar')
+            ->setTextStyle('light');
+        $this->assertEquals(
+            '<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light"><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#toolbar" aria-controls="toolbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="toolbar"></div></nav>',
+            $view_helper->__toString()
+        );
+    }
+
+    /**
+     * Test setting text color, dark
+     */
+    public function testSetTextDark()
+    {
+        $view_helper = new Toolbar();
+        $view_helper->__invoke('toolbar')
+            ->setTextStyle('dark');
+        $this->assertEquals(
+            '<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-dark"><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#toolbar" aria-controls="toolbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="toolbar"></div></nav>',
+            $view_helper->__toString()
+        );
+    }
 }
