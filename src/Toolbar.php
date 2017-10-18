@@ -50,6 +50,11 @@ class Toolbar extends AbstractHelper
     private $id;
 
     /**
+     * @var array Have custom options been set?
+     */
+    private $options_set;
+
+    /**
      * Entry point for the view helper
      *
      * @param string $id Id for navbar
@@ -116,9 +121,20 @@ class Toolbar extends AbstractHelper
      */
     public function addToolsToRight(array $group) : Toolbar
     {
-        $this->tool_groups['right'];
+        $this->tool_groups['right'] = $group;
 
         return $this;
+    }
+
+    /**
+     * Attach the dark navbar style for when you are using a light background colour
+     *
+     * @return Toolbar
+     */
+    public function dark() : Toolbar
+    {
+        $this->options_set['style'] = true;
+        $this->classes['main']['style'] = 'navbar-dark';
     }
 
     /**
@@ -131,6 +147,17 @@ class Toolbar extends AbstractHelper
         $this->classes['main'][] = 'fixed-bottom';
 
         return $this;
+    }
+
+    /**
+     * Attach the light navbar style for when you are using a dark background colour
+     *
+     * @return Toolbar
+     */
+    public function light() : Toolbar
+    {
+        $this->options_set['style'] = true;
+        $this->classes['main']['style'] = 'navbar-light';
     }
 
     /**
@@ -213,8 +240,33 @@ class Toolbar extends AbstractHelper
     protected function assignTextStyle(string $color)
     {
         if (in_array($color, $this->supported_text_styles) === true) {
-            $this->text_color = $color;
+            $this->classes['main'] = $color;
         }
+    }
+
+    /**
+     * Generate the classes string for the toolbar based on the set properties, default values are used if
+     * options haven't been set
+     *
+     * @return string
+     */
+    private function classes()
+    {
+        $classes = [ 'navbar' ];
+
+        if ($this->options_set['expand'] === false) {
+            $classes[]= 'navbar-expand-lg';
+        }
+
+        if ($this->options_set['style'] === false) {
+            $classes[] = 'navbar-dark';
+        }
+
+        if ($this->options_set['background'] === false) {
+            $classes[] = 'bg-dark';
+        }
+
+        return implode(' ', array_merge($classes, $this->classes['main']));
     }
 
     /**
@@ -253,9 +305,7 @@ class Toolbar extends AbstractHelper
      */
     private function render() : string
     {
-        $classes = ' ' . implode(' ', $this->classes['main']);
-
-        $html = '<nav class="navbar navbar-expand-lg navbar-dark bg-dark' . rtrim($classes) . '">';
+        $html = '<nav class="' . $this->classes() . '">';
         $html .= '<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#' .
             $this->id . '" aria-controls="' . $this->id .
             '" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>';
@@ -299,8 +349,15 @@ class Toolbar extends AbstractHelper
      */
     private function reset() : void
     {
+        $this->options_set = [
+            'expand' => false,
+            'style' => false,
+            'background' => false,
+            'text' => false
+        ];
+
         $this->classes = [
-            'main' => [],
+            'main' => [ ],
             'groups' => [ 'btn-group' ],
             'left' => [ 'btn-group' ],
             'right' => [ 'btn-group' ]
