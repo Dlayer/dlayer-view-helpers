@@ -55,6 +55,11 @@ class Toolbar extends AbstractHelper
     private $options_set;
 
     /**
+     * @var string Base uri for all links
+     */
+    private $base_uri;
+
+    /**
      * Entry point for the view helper
      *
      * @param string $id Id for navbar
@@ -127,6 +132,58 @@ class Toolbar extends AbstractHelper
     }
 
     /**
+     * Collapse the navbar below lg
+     *
+     * @return Toolbar
+     */
+    public function collapseBelowLg()
+    {
+        $this->options_set['expand'] = true;
+        $this->classes['main']['expand'] = 'navbar-expand-lg';
+
+        return $this;
+    }
+
+    /**
+     * Collapse the navbar below md
+     *
+     * @return Toolbar
+     */
+    public function collapseBelowMd()
+    {
+        $this->options_set['expand'] = true;
+        $this->classes['main']['expand'] = 'navbar-expand-md';
+
+        return $this;
+    }
+
+    /**
+     * Collapse the navbar below sm
+     *
+     * @return Toolbar
+     */
+    public function collapseBelowSm()
+    {
+        $this->options_set['expand'] = true;
+        $this->classes['main']['expand'] = 'navbar-expand-sm';
+
+        return $this;
+    }
+
+    /**
+     * Collapse the navbar below xl
+     *
+     * @return Toolbar
+     */
+    public function collapseBelowXl()
+    {
+        $this->options_set['expand'] = true;
+        $this->classes['main']['expand'] = 'navbar-expand-xl';
+
+        return $this;
+    }
+
+    /**
      * Attach the dark navbar style for when you are using a light background colour
      *
      * @return Toolbar
@@ -135,6 +192,8 @@ class Toolbar extends AbstractHelper
     {
         $this->options_set['style'] = true;
         $this->classes['main']['style'] = 'navbar-dark';
+
+        return $this;
     }
 
     /**
@@ -150,6 +209,18 @@ class Toolbar extends AbstractHelper
     }
 
     /**
+     * Fixed top layout
+     *
+     * @return Toolbar
+     */
+    public function fixedTop() : Toolbar
+    {
+        $this->classes['main'][] = 'fixed-top';
+
+        return $this;
+    }
+
+    /**
      * Attach the light navbar style for when you are using a dark background colour
      *
      * @return Toolbar
@@ -158,6 +229,8 @@ class Toolbar extends AbstractHelper
     {
         $this->options_set['style'] = true;
         $this->classes['main']['style'] = 'navbar-light';
+
+        return $this;
     }
 
     /**
@@ -173,6 +246,21 @@ class Toolbar extends AbstractHelper
 
         return $this;
     }
+
+    /**
+     * Set the base uri for any links
+     *
+     * @param string $uri
+     *
+     * @return Toolbar
+     */
+    public function setBaseUri(string $uri) : Toolbar
+    {
+        $this->base_uri = $uri;
+
+        return $this;
+    }
+
 
     /**
      * Custom classes to attach to the left button group
@@ -227,6 +315,18 @@ class Toolbar extends AbstractHelper
     public function setTextStyle(string $color) : Toolbar
     {
         $this->assignTextStyle($color);
+
+        return $this;
+    }
+
+    /**
+     * Sticky top layout
+     *
+     * @return Toolbar
+     */
+    public function stickyTop() : Toolbar
+    {
+        $this->classes['main'][] = 'sticky-top';
 
         return $this;
     }
@@ -287,14 +387,14 @@ class Toolbar extends AbstractHelper
             $classes .= ' active';
         }
 
-        $glypth = '';
+        $glyph = '';
         if (array_key_exists('fa-glyphs', $button) === true) {
-            $glypth = '<i class="fa ' . implode(' ', $button['fa-glyphs']) .
+            $glyph = '<i class="fa ' . implode(' ', $button['fa-glyphs']) .
                 '" aria-hidden="true"></i> ';
         }
 
-        return '<a class="' . $classes . '" href="' . $button['id'] . '">' . $glypth .
-            $button['name'] . '</a>';
+        return '<a class="' . $classes . '" href="' . (($this->base_uri !== null) ? $this->base_uri : null) .
+            $button['id'] . '">' . $glyph . $button['name'] . '</a>';
     }
 
     /**
@@ -371,5 +471,6 @@ class Toolbar extends AbstractHelper
 
         $this->active = null;
         $this->id = null;
+        $this->base_uri = null;
     }
 }
