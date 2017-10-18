@@ -1,0 +1,15 @@
+language: php
+php:
+  - '7.1'
+
+install:
+  - composer install --no-interaction
+
+notifications:
+  email:
+    recipients:
+      - dean@g3d-development.com
+    on_success: never # default: change
+    on_failure: always # default: always
+
+script: phpunit tests
