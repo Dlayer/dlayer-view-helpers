@@ -40,6 +40,21 @@ class Toolbar extends AbstractHelper
     ];
 
     /**
+     * @var array Bootstrap styles
+     */
+    protected $supported_background_styles = [
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'light',
+        'dark',
+        'white'
+    ];
+
+    /**
      * @var integer Active button id
      */
     private $active;
@@ -248,6 +263,21 @@ class Toolbar extends AbstractHelper
     }
 
     /**
+     * Set the background color for the component, need to be one of the following, primary, secondary, success, danger,
+     * warning, info, light, dark or white, if an incorrect style is passed in we don't apply the class.
+     *
+     * @param string $color
+     *
+     * @return Toolbar
+     */
+    public function setBgStyle(string $color) : Toolbar
+    {
+        $this->assignBackgroundStyle($color);
+
+        return $this;
+    }
+
+    /**
      * Set the base uri for any links
      *
      * @param string $uri
@@ -332,14 +362,28 @@ class Toolbar extends AbstractHelper
     }
 
     /**
-     * Validate and assign the text colour, needs to be one of the following, primary, secondary, success, danger,
-     * warning, info, light or dark, if an incorrect style is passed in we don't apply the class.
+     * Validate and assign the background colour, needs to be one of the following, primary, secondary, success, danger,
+     * warning, info, light, dark or white, if an incorrect style is passed in we don't apply the class.
      *
      * @param string $color
      */
     protected function assignTextStyle(string $color)
     {
         if (in_array($color, $this->supported_text_styles) === true) {
+            $this->classes['main'] = $color;
+        }
+    }
+
+    /**
+     * Validate and assign the text colour, needs to be one of the following, primary, secondary, success, danger,
+     * warning, info, light or dark, if an incorrect style is passed in we don't apply the class.
+     *
+     * @param string $color
+     */
+    protected function assignBackgroundStyle(string $color)
+    {
+        if (in_array($color, $this->supported_text_styles) === true) {
+            $this->options_set['background'] = true;
             $this->classes['main'] = $color;
         }
     }
