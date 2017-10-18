@@ -370,7 +370,7 @@ class Toolbar extends AbstractHelper
     protected function assignTextStyle(string $color)
     {
         if (in_array($color, $this->supported_text_styles) === true) {
-            $this->classes['main'] = $color;
+            $this->classes['main'][] = 'text' . $color;
         }
     }
 
@@ -382,9 +382,9 @@ class Toolbar extends AbstractHelper
      */
     protected function assignBackgroundStyle(string $color)
     {
-        if (in_array($color, $this->supported_text_styles) === true) {
+        if (in_array($color, $this->supported_background_styles) === true) {
             $this->options_set['background'] = true;
-            $this->classes['main'] = $color;
+            $this->classes['main'][] = 'bg-' . $color;
         }
     }
 
